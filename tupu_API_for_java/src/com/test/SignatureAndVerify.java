@@ -85,8 +85,8 @@ public class SignatureAndVerify {
 	 **/
 	private String Signature(String sign_string) {
 		try {
-			// 读取你的密钥rsa_private_key.pem
-			File private_key_pem=new File("pem/rsa_private_key.pem");
+			// 读取你的密钥pkcs8_private_key.pem
+			File private_key_pem=new File("pem/pkcs8_private_key.pem");
 			InputStream inPrivate = new FileInputStream(private_key_pem);
 			String privateKeyStr = readKey(inPrivate);
 			byte[] buffer = Base64.decode(privateKeyStr);

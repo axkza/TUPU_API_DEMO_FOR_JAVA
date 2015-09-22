@@ -46,7 +46,7 @@ public class SignatureAndVerify {
 
 		secretId = "你的secretId";
 		timestamp = Math.round(System.currentTimeMillis()/1000) + "";
-        nonce = Math.random() + "";
+        	nonce = Math.random() + "";
 		sign_string = secretId + "," + timestamp + "," + nonce;
 		url = "http://api.open.tuputech.com/v3/recognition/" + secretId;
 

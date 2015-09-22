@@ -10,12 +10,15 @@ import java.nio.charset.Charset;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.ArrayList;
 import java.util.List;
+
+import net.sf.json.JSONObject;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -33,10 +36,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import net.sf.json.JSONObject;
-
-import java.security.Signature;
-
 public class SignatureAndVerify {
 	private static String url, secretId, timestamp, nonce, sign_string, signature;
 	private static List<String> image_url = new ArrayList<String>();
@@ -49,14 +48,14 @@ public class SignatureAndVerify {
 		timestamp = Math.round(System.currentTimeMillis()/1000) + "";
         nonce = Math.random() + "";
 		sign_string = secretId + "," + timestamp + "," + nonce;
-		url = "http://api.open.tuputech.com/v2/classification/54bcfc31329af61034f7c2f8/54bcfc6c329af61034f7c2fc";
+		url = "http://api.open.tuputech.com/v3/recognition/" + secretId;
 
 		// 如果采用传递URL的方式
 		image_url.add("http://img.my.csdn.net/uploads/201302/01/1359697713_5224.png");
 		image_url.add("http://i.mmcdn.cn/simba/img/TB1Z465HFXXXXceXVXXSutbFXXX.jpg");
 		// 如果采用直接post文件的方式
-		// image_file.add(new File("E:/xxxx/aa.png"));
-		// image_file.add(new File("E:/xxxx/bb.jpg"));
+		//image_file.add(new File("img/aa.jpg"));
+		//image_file.add(new File("img/bb.jpg"));
 		
 		//得到签名
 		signature = sv.Signature(sign_string);
@@ -185,7 +184,6 @@ public class SignatureAndVerify {
 
 				}
 			}
-			builder.addPart("secretId", new StringBody(secretId, ContentType.create(HTTP.PLAIN_TEXT_TYPE, HTTP.UTF_8)));
 			builder.addPart("timestamp",
 					new StringBody(timestamp, ContentType.create(HTTP.PLAIN_TEXT_TYPE, HTTP.UTF_8)));
 			builder.addPart("nonce", new StringBody(nonce, ContentType.create(HTTP.PLAIN_TEXT_TYPE, HTTP.UTF_8)));

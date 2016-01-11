@@ -1,7 +1,6 @@
 package com.test;
 
-import java.lang.*; 
-import java.io.*; 
+import java.io.UnsupportedEncodingException;
   
 public class Base64 { 
     private static char[] base64EncodeChars = new char[] { 
